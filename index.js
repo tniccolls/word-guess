@@ -1,7 +1,7 @@
 var inquirer = require("inquirer");
 var wordLink = require("./word");
 // var letter = require("./letter");
-console.log("Welcome to Lord of the Rings word-guess!");
+
 var wordbank = [
   "frodo ringbearer",
   "bilbo baggins",
@@ -32,7 +32,6 @@ var wordbank = [
   "fly you fools"
 ];
 
-
 // var chosenWord = wordbank[Math.floor(Math.random()*wordbank.length)]
 // var answer = new wordLink(chosenWord);
 // answer.constructWord();
@@ -45,8 +44,9 @@ var gameOver = 0;
 newGame();
 guessLetter();
 
-function newGame(){
-  chosenWord = wordbank[Math.floor(Math.random()*wordbank.length)]
+function newGame() {
+  console.log("Welcome to Lord of the Rings word-guess!");
+  chosenWord = wordbank[Math.floor(Math.random() * wordbank.length)];
   answer = new wordLink(chosenWord);
   answer.constructWord();
   answer.displayProgress();
@@ -64,8 +64,6 @@ function guessLetter() {
       }
     ])
     .then(function(letterInput) {
-
-
       answer.checkLetter(letterInput.guessedLetter);
       if (answer.word.indexOf(letterInput.guessedLetter) > -1) {
         console.log("Correct!");
@@ -78,11 +76,20 @@ function guessLetter() {
         if (gameOver === answer.word.length) {
           console.log("You Win!");
           //I will add a "start new game" option here
-          // inquirer.prompt([
-          //   {
-          //     type:
-          //   }
-          // ])
+          inquirer
+            .prompt([
+              {
+                type: "confirm",
+                name: "restart",
+                message: "Do you want to play again?"
+              }
+            ])
+            .then(function(startAgain) {
+              if (startAgain.restart) {
+                newGame();
+                guessLetter();
+              }
+            });
         } else {
           gameOver = 0;
           guessLetter();
@@ -92,8 +99,21 @@ function guessLetter() {
         console.log("You have " + guessesLeft + " guesses left.");
         if (guessesLeft === 0) {
           console.log("You lose! Game Over!");
-          console.log("The correct answer is " + answer.word);
-
+          console.log("The correct answer is " + answer.word + ".");
+          inquirer
+            .prompt([
+              {
+                type: "confirm",
+                name: "restart",
+                message: "Do you want to play again?"
+              }
+            ])
+            .then(function(startAgain) {
+              if (startAgain.restart) {
+                newGame();
+                guessLetter();
+              }
+            });
         } else {
           guessLetter();
         }
