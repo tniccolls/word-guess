@@ -5,7 +5,7 @@ console.log("Welcome to Lord of the Rings word-guess!");
 var wordbank = [
   "frodo ringbearer",
   "bilbo baggins",
-  "gimly",
+  "gimli",
   "aragorn the strider",
   "one ring to rule them all",
   "legolas greenleaf",
@@ -18,9 +18,9 @@ var wordbank = [
   "return of the king",
   "faramir son of denethor",
   "boromir son of denethor",
-  "gandalf the grey",
+  "gandalf the gray",
   "gandalf the white",
-  "gandelf greyhame",
+  "gandalf grayhame",
   "mithrandir",
   "stormcrow",
   "king theodin",
@@ -33,13 +33,27 @@ var wordbank = [
 ];
 
 
-var chosenWord = wordbank[Math.floor(Math.random()*wordbank.length)]
-var answer = new wordLink(chosenWord);
-// var myTestWord = new wordLink("thor son of odin");
-answer.constructWord();
-answer.displayProgress();
+// var chosenWord = wordbank[Math.floor(Math.random()*wordbank.length)]
+// var answer = new wordLink(chosenWord);
+// answer.constructWord();
+// answer.displayProgress();
+var chosenWord = "";
+var answer = "";
 var guessesLeft = 8;
 var gameOver = 0;
+
+newGame();
+guessLetter();
+
+function newGame(){
+  chosenWord = wordbank[Math.floor(Math.random()*wordbank.length)]
+  answer = new wordLink(chosenWord);
+  answer.constructWord();
+  answer.displayProgress();
+  guessesLeft = 8;
+  gameOver = 0;
+}
+
 function guessLetter() {
   inquirer
     .prompt([
@@ -63,6 +77,12 @@ function guessLetter() {
         }
         if (gameOver === answer.word.length) {
           console.log("You Win!");
+          //I will add a "start new game" option here
+          // inquirer.prompt([
+          //   {
+          //     type:
+          //   }
+          // ])
         } else {
           gameOver = 0;
           guessLetter();
@@ -80,5 +100,3 @@ function guessLetter() {
       }
     });
 }
-
-guessLetter();

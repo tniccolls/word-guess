@@ -45,8 +45,8 @@ function Word(answer) {
 
 
 
-var testWord = new Word("testing");
-var testWord2 = new Word("try a phrase");
+// var testWord = new Word("testing");
+// var testWord2 = new Word("try a phrase");
 // for(i=0; i<testWord2.length; i++){
 //     testWord2.letterA
 // }
